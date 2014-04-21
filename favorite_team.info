@@ -1,0 +1,5 @@
+name  = Teams
+description = This module assign to user a favortie soccer team of Soccer LMF.
+package = Demo DCMX
+core = 7.x
+dependencies[] = ctools

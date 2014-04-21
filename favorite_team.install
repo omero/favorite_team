@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function favorite_team_schema() {
+  $schema['team'] = array(
+    'description' => 'Teams that can be assigned to a user',
+    'fields' => array(
+      'team_id' => array(
+        'description' => 'The primary identifier for the team.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        //This param is to tell ctools that is not be necessary exported to code
+        'no export' => TRUE),
+      'name' => array(
+        'description' => 'The name of the Team',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => ''),
+      'description' => array(
+        'description' => 'Brief descriptive text of the Team',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => ''),
+      ),
+    'primary key' => array('team_id'),
+    //Add some data for exportable plugin more information ctools/help/export.html
+    'export' => array(
+        'key' => 'name', //what fiels is the unique machine readeble name
+        'key name' => 'Team Name',// exportt ui module human readeble name
+        'primary key' => 'team_id', // primary key for table
+        'default hook' => 'favorite_team_info', // implement
+        'api' => array( //describe information owner
+          'owner' => 'favorite_team',
+          'api' => 'favorite_team',
+          'minimum_version' => 1,
+          'current_version' => 1,
+          ),
+      ),
+  );
+  $schema['team_user'] = array(
+    'description' => 'Mapping teams to users',
+    'fields' => array(
+      'team' => array(
+        'description' => 'Name of team.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE),
+      'uid' => array(
+        'description' => 'User id',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0)
+  );
+  return $schema;
+}
