@@ -61,7 +61,7 @@ function favorite_team_user_update(&$edit, $account, $category) {
         $query->values(array('team'=>$team, 'uid' => $account->uid));
       }
     }
-    $query->execute
+    $query->execute;
   }
 }
 
@@ -76,22 +76,21 @@ function favorite_team_user_load($users) {
    *}
    */
   /* Your code here */
+  $result = db_query('SELECT * FROM {team_user} WHERE uid IN (:uids)',array(':uids'=>array_keys($users)));
+  $teams = favorite_team_load_teams();
+  foreach ($result as $record) {
+    $users[$record->uid]->teams[$record->team] = $teams[$record->team];
+  }
 }
 
 /**
  * Implements hook_user_view().
  */
 function favorite_team_user_view($account, $view_mode, $langcode) {
-  /*
-   *if (user_access('create blog content', $account)) {
-   *  $account->content['summary']['blog'] =  array(
-   *    '#type' => 'user_profile_item',
-   *    '#title' => t('Blog'),
-   *    '#markup' => l(t('View recent blog entries'), "blog/$account->uid", array('attributes' => array('title' => t("Read !username's latest blog entries.", array('!username' => format_username($account)))))),
-   *    '#attributes' => array('class' => array('blog')),
-   *  );
-   *}
-   */
-  /* Your code here */
+  foreach ($account->teams as $team) {
+    $account->content['teams'][$team->name] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class ="team">'.check_plain($team->name).' - '.check_plain($team->description).'</div>',
+    );
+  }
 }
-
