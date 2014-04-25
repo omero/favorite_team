@@ -80,7 +80,6 @@ function favorite_team_user_load($users) {
  * Implements hook_user_view().
  */
 function favorite_team_user_view($account, $view_mode, $langcode) {
-  dpm($account);
   foreach ($account->teams as $team) {
     $account->content['teams'][$team->name] = array(
       '#type' => 'markup',
