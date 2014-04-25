@@ -15,7 +15,7 @@ function favorite_team_ctools_plugin_directory($module, $plugin) {
  * Implements hook_form_FORM_ID_alter().
  */
 function favorite_team_form_user_profile_form_alter(&$form, &$form_state) {
-  $account = $form['user'];
+  $account = $form['#user'];
 
   //Get teams
   $teams = favorite_team_load_teams();
@@ -54,14 +54,14 @@ function favorite_team_user_update(&$edit, $account, $category) {
     db_delete('team_user')
       ->condition('uid',$account->uid)
       ->execute();
-    //save new badges
+    //save new teams
     $query = db_insert('team_user')->fields(array('team','uid'));
     foreach ($edit['teams'] as $team => $value) {
       if ($value !== 0){
         $query->values(array('team'=>$team, 'uid' => $account->uid));
       }
     }
-    $query->execute;
+    $query->execute();
   }
 }
 
@@ -69,13 +69,6 @@ function favorite_team_user_update(&$edit, $account, $category) {
  * Implements hook_user_load().
  */
 function favorite_team_user_load($users) {
-  /*
-   *$result = db_query('SELECT * FROM {my_table} WHERE uid IN (:uids)', array(':uids' => array_keys($users)));
-   *foreach ($result as $record) {
-   *  $users[$record->uid]->foo = $result->foo;
-   *}
-   */
-  /* Your code here */
   $result = db_query('SELECT * FROM {team_user} WHERE uid IN (:uids)',array(':uids'=>array_keys($users)));
   $teams = favorite_team_load_teams();
   foreach ($result as $record) {
@@ -87,6 +80,7 @@ function favorite_team_user_load($users) {
  * Implements hook_user_view().
  */
 function favorite_team_user_view($account, $view_mode, $langcode) {
+  dpm($account);
   foreach ($account->teams as $team) {
     $account->content['teams'][$team->name] = array(
       '#type' => 'markup',
