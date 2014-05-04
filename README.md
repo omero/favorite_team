@@ -16,4 +16,4 @@ Features
 
 [[images/export_ui.png]]
 
-[![export ui(https://github.com/omero/favorite_team/blob/master/images/export_ui.png)](https://github.com/omero/favorite_team/blob/master/images/export_ui.png)
+[![export ui(https://raw.githubusercontent.com/omero/favorite_team/master/images/export_ui.png)](https://raw.githubusercontent.com/omero/favorite_team/master/images/export_ui.png)
