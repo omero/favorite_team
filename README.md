@@ -10,8 +10,8 @@ We need install our module in the site that we want to import our exportable obj
 Features
 ========
 
-*Create, Edit and Delete Soccer Teams
-*Clone, Disable and Export our records (like Views module).
+* Create, Edit and Delete Soccer Teams
+* Clone, Disable and Export our records (like Views module).
 
 
 [![export ui(https://raw.githubusercontent.com/omero/favorite_team/master/images/export_ui.png)](https://raw.githubusercontent.com/omero/favorite_team/master/images/export_ui.png)
