@@ -14,6 +14,4 @@ Features
 *Clone, Disable and Export our records (like Views module).
 
 
-[[images/export_ui.png]]
-
 [![export ui(https://raw.githubusercontent.com/omero/favorite_team/master/images/export_ui.png)](https://raw.githubusercontent.com/omero/favorite_team/master/images/export_ui.png)
